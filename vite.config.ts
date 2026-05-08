@@ -11,8 +11,6 @@ export default defineConfig({
   },
   plugins: [
     tailwindcss(),
-    tanstackStart({
-      target: "cloudflare-module",
-    }),
+    tanstackStart({}),
   ],
 });
