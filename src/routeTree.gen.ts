@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppIndexRouteImport } from './routes/_app.index'
+import { Route as AppRutasRouteImport } from './routes/_app.rutas'
+import { Route as AppClientesRouteImport } from './routes/_app.clientes'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -21,24 +23,40 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppRutasRoute = AppRutasRouteImport.update({
+  id: '/rutas',
+  path: '/rutas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppClientesRoute = AppClientesRouteImport.update({
+  id: '/clientes',
+  path: '/clientes',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
+  '/clientes': typeof AppClientesRoute
+  '/rutas': typeof AppRutasRoute
 }
 export interface FileRoutesByTo {
+  '/clientes': typeof AppClientesRoute
+  '/rutas': typeof AppRutasRoute
   '/': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
+  '/_app/clientes': typeof AppClientesRoute
+  '/_app/rutas': typeof AppRutasRoute
   '/_app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/clientes' | '/rutas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_app' | '/_app/'
+  to: '/clientes' | '/rutas' | '/'
+  id: '__root__' | '/_app' | '/_app/clientes' | '/_app/rutas' | '/_app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -61,14 +79,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/rutas': {
+      id: '/_app/rutas'
+      path: '/rutas'
+      fullPath: '/rutas'
+      preLoaderRoute: typeof AppRutasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/clientes': {
+      id: '/_app/clientes'
+      path: '/clientes'
+      fullPath: '/clientes'
+      preLoaderRoute: typeof AppClientesRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppClientesRoute: typeof AppClientesRoute
+  AppRutasRoute: typeof AppRutasRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppClientesRoute: AppClientesRoute,
+  AppRutasRoute: AppRutasRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
