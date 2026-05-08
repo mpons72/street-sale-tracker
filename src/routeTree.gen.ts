@@ -12,7 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppIndexRouteImport } from './routes/_app.index'
 import { Route as AppRutasRouteImport } from './routes/_app.rutas'
+import { Route as AppRutaRouteImport } from './routes/_app.ruta'
+import { Route as AppHistorialRouteImport } from './routes/_app.historial'
+import { Route as AppFueraDeRutaRouteImport } from './routes/_app.fuera-de-ruta'
 import { Route as AppClientesRouteImport } from './routes/_app.clientes'
+import { Route as AppAjustesRouteImport } from './routes/_app.ajustes'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -28,35 +32,90 @@ const AppRutasRoute = AppRutasRouteImport.update({
   path: '/rutas',
   getParentRoute: () => AppRoute,
 } as any)
+const AppRutaRoute = AppRutaRouteImport.update({
+  id: '/ruta',
+  path: '/ruta',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHistorialRoute = AppHistorialRouteImport.update({
+  id: '/historial',
+  path: '/historial',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFueraDeRutaRoute = AppFueraDeRutaRouteImport.update({
+  id: '/fuera-de-ruta',
+  path: '/fuera-de-ruta',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppClientesRoute = AppClientesRouteImport.update({
   id: '/clientes',
   path: '/clientes',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAjustesRoute = AppAjustesRouteImport.update({
+  id: '/ajustes',
+  path: '/ajustes',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
+  '/ajustes': typeof AppAjustesRoute
   '/clientes': typeof AppClientesRoute
+  '/fuera-de-ruta': typeof AppFueraDeRutaRoute
+  '/historial': typeof AppHistorialRoute
+  '/ruta': typeof AppRutaRoute
   '/rutas': typeof AppRutasRoute
 }
 export interface FileRoutesByTo {
+  '/ajustes': typeof AppAjustesRoute
   '/clientes': typeof AppClientesRoute
+  '/fuera-de-ruta': typeof AppFueraDeRutaRoute
+  '/historial': typeof AppHistorialRoute
+  '/ruta': typeof AppRutaRoute
   '/rutas': typeof AppRutasRoute
   '/': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
+  '/_app/ajustes': typeof AppAjustesRoute
   '/_app/clientes': typeof AppClientesRoute
+  '/_app/fuera-de-ruta': typeof AppFueraDeRutaRoute
+  '/_app/historial': typeof AppHistorialRoute
+  '/_app/ruta': typeof AppRutaRoute
   '/_app/rutas': typeof AppRutasRoute
   '/_app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/clientes' | '/rutas'
+  fullPaths:
+    | '/'
+    | '/ajustes'
+    | '/clientes'
+    | '/fuera-de-ruta'
+    | '/historial'
+    | '/ruta'
+    | '/rutas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/clientes' | '/rutas' | '/'
-  id: '__root__' | '/_app' | '/_app/clientes' | '/_app/rutas' | '/_app/'
+  to:
+    | '/ajustes'
+    | '/clientes'
+    | '/fuera-de-ruta'
+    | '/historial'
+    | '/ruta'
+    | '/rutas'
+    | '/'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/_app/ajustes'
+    | '/_app/clientes'
+    | '/_app/fuera-de-ruta'
+    | '/_app/historial'
+    | '/_app/ruta'
+    | '/_app/rutas'
+    | '/_app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -86,6 +145,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRutasRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/ruta': {
+      id: '/_app/ruta'
+      path: '/ruta'
+      fullPath: '/ruta'
+      preLoaderRoute: typeof AppRutaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/historial': {
+      id: '/_app/historial'
+      path: '/historial'
+      fullPath: '/historial'
+      preLoaderRoute: typeof AppHistorialRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/fuera-de-ruta': {
+      id: '/_app/fuera-de-ruta'
+      path: '/fuera-de-ruta'
+      fullPath: '/fuera-de-ruta'
+      preLoaderRoute: typeof AppFueraDeRutaRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/clientes': {
       id: '/_app/clientes'
       path: '/clientes'
@@ -93,17 +173,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppClientesRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/ajustes': {
+      id: '/_app/ajustes'
+      path: '/ajustes'
+      fullPath: '/ajustes'
+      preLoaderRoute: typeof AppAjustesRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppAjustesRoute: typeof AppAjustesRoute
   AppClientesRoute: typeof AppClientesRoute
+  AppFueraDeRutaRoute: typeof AppFueraDeRutaRoute
+  AppHistorialRoute: typeof AppHistorialRoute
+  AppRutaRoute: typeof AppRutaRoute
   AppRutasRoute: typeof AppRutasRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAjustesRoute: AppAjustesRoute,
   AppClientesRoute: AppClientesRoute,
+  AppFueraDeRutaRoute: AppFueraDeRutaRoute,
+  AppHistorialRoute: AppHistorialRoute,
+  AppRutaRoute: AppRutaRoute,
   AppRutasRoute: AppRutasRoute,
   AppIndexRoute: AppIndexRoute,
 }
